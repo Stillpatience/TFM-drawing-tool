@@ -1,5 +1,5 @@
 images/
-XML outputs/
+outputs/
 __pycache__/
 .idea/
 venv/
