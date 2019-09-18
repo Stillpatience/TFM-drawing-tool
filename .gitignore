@@ -1,0 +1,5 @@
+images/
+XML outputs/
+__pycache__/
+.idea/
+venv/
