@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+.container {
+  height: 400px;
+    width: 800px;
+  position: relative;
+  border: 1px solid black;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.bottom_center {
+  margin: 0;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+</style>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Welcome to my page!</title>
+
+</head>
+<body bgcolor="6a7495">
+    <!---<img style="position:absolute; top:35px; left:150px; width:50px; height:50px" src="{{url_for('static', filename='felix.jpg')}}">
+    #<p style="text-align:center;"><img src="{{url_for('static', filename='felix.jpg')}}"></p>--->
+    <div class="center">
+    <p><img src="{{url_for('static', filename='felix.jpg')}}"></p>
+    </div>
+    <div class="center">
+      <div class="container">
+      </div>
+    </div>
+    <form>
+      <p style = "font-family:Arial; color:white">
+      Top x:
+      <input type="number" name="x" min="0" max="800">
+      Top y:
+      <input type="number" name="y" min="0" max="400">
+        <input type="submit"></p>
+    </form>
+</body>
+</html>
