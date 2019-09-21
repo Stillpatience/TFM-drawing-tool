@@ -1,5 +1,7 @@
-images/
 outputs/
 __pycache__/
 .idea/
 venv/
+local_images/
+static/images/uploads/
+!*/felix.jpg

@@ -1,14 +1,13 @@
-import glob
 import math
 import os
 from os.path import join, isfile
 
 from PIL import Image
 
-from Color import Color
-from Drawing import Drawing
-from Line import Line
-from Point import Point
+from color import Color
+from drawing import Drawing
+from line import Line
+from point import Point
 
 
 def calculate_thickness(distance):
