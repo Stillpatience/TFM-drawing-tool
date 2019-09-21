@@ -1,5 +1,8 @@
+import glob
 import math
 import os
+from os.path import join, isfile
+
 from PIL import Image
 
 from Color import Color
@@ -13,7 +16,11 @@ def calculate_thickness(distance):
 
 
 def get_maximum_size():
-    return 40000
+    return 60000
+
+
+def rgb_to_hex(rgb):
+    return '%02x%02x%02x' % rgb[:3]
 
 
 def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="result.xml",  out_dir="outputs"):
@@ -60,4 +67,12 @@ def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="res
         generate_xml(d=d + 1, img_directory=img_directory, img_name=img_name, out_dir=out_dir, out_file=out_file)
 
 
-generate_xml()
+path = 'images'
+
+files = [f for f in os.listdir(path) if isfile(join(path, f))]
+for file in files:
+    name = file.split(".")[0]
+    print(file)
+
+generate_xml(img_name="pickaxe.jpg", out_file="pickaxe"+".xml")
+
