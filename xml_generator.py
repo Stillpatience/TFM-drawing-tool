@@ -1,6 +1,5 @@
 import math
 import os
-from os.path import join, isfile
 
 from PIL import Image
 
@@ -22,7 +21,7 @@ def rgb_to_hex(rgb):
     return '%02x%02x%02x' % rgb[:3]
 
 
-def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="result.xml",  out_dir="outputs"):
+def generate_xml(d=1, img_directory="static/images/uploads", img_name="test.jpg", out_file="result.xml",  out_dir="outputs", x_offset=0, y_offset=0):
     im = Image.open(os.path.join(img_directory, img_name))
     pix = im.load()
     first_y, last_y, curr_x, lines, prev_color = 0, 0, 0, [], pix[0, 0]
@@ -36,8 +35,8 @@ def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="res
                 if first_y == last_y:
                     lines.append(
                         Line(
-                            Point(x, first_y),
-                            Point(x, last_y + 1),
+                            Point(x_offset + x, y_offset + first_y),
+                            Point(x_offset + x, y_offset + last_y + 1),
                             Color(prev_color),
                             thickness,
                         )
@@ -45,8 +44,8 @@ def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="res
                 else:
                     lines.append(
                         Line(
-                            Point(x, first_y),
-                            Point(x, last_y),
+                            Point(x_offset + x, y_offset + first_y),
+                            Point(x_offset + x, y_offset + last_y),
                             Color(prev_color),
                             thickness,
                         )
@@ -61,17 +60,7 @@ def generate_xml(d=1, img_directory="images", img_name="test.jpg", out_file="res
         print("Reached an accuracy of: " + str(d))
         output_file = open(os.path.join(out_dir, out_file), "w")
         output_file.write(str(drawing))
-        return
+        return str(drawing)
     else:
-        generate_xml(d=d + 1, img_directory=img_directory, img_name=img_name, out_dir=out_dir, out_file=out_file)
-
-
-path = 'images'
-
-files = [f for f in os.listdir(path) if isfile(join(path, f))]
-for file in files:
-    name = file.split(".")[0]
-    print(file)
-
-generate_xml(img_name="pickaxe.jpg", out_file="pickaxe"+".xml")
+        return generate_xml(d=d + 1, img_directory=img_directory, img_name=img_name, out_dir=out_dir, out_file=out_file, x_offset=x_offset, y_offset=y_offset)
 
