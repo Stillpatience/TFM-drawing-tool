@@ -32,22 +32,22 @@
 
 <head>
     <!-- BROWSER ICON -->
-    <link rel="icon" href="static/icon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="static/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/icon/favicon-16x16.png">
-    <link rel="manifest" href="static/icon/site.webmanifest">
-    <link rel="mask-icon" href="static/icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" href="static/images/icon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/icon/favicon-16x16.png">
+    <link rel="manifest" href="static/images/icon/site.webmanifest">
+    <link rel="mask-icon" href="static/images/icon/safari-pinned-tab.svg" color="#5bbad5">
     <meta charset="UTF-8">
     <title>Welcome to my page!</title>
 </head>
 
 <body bgcolor="6a7495">
     <div id="mydiv">
-        <img src="/static/images/uploads/{{image}}"></div>
+        <img id="image" src="/static/images/uploads/{{image}}"></div>
     </div>
     <div class="center">
-        <div class="container">
+        <div class="container" id="container">
         </div>
     </div>
 
@@ -55,8 +55,12 @@
          enctype = "multipart/form-data">
          <input type = "file" name = "file" accept="jpg/png" />
          <input type = "submit"/>
-      </form>
-       <form action="" method="post">
+    </form>
+    <form action="" method="post">
+        x:<br>
+        <input type="number" id="x" name="x" min="0" max="800"><br>
+        y:<br>
+        <input type="number" id="y" name="y" min="0" max="400">
         <input type="submit" name="xml" value="Generate XML!" />
     </form>
 
@@ -66,6 +70,8 @@
 
     function dragElement(elmnt) {
       var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      var container = null, container_x = 0, container_y = 0 , new_x=0, new_y=0;
+
       if (document.getElementById(elmnt.id + "header")) {
         /* if present, the header is where you move the DIV from:*/
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -93,9 +99,23 @@
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        // Find position of container
+        container = document.getElementById('container');
+        container_x = container.parentElement.offsetLeft;
+        container_y = container.parentElement.offsetTop;
+        // Update the form with the new position if it is not out of bounds
+          new_x = elmnt.offsetLeft - pos1 - container_x + 400;
+          new_y = elmnt.offsetTop - pos2 - container_y + 200;
+          if ((new_x >= 0 && new_x <= 800) && (new_y >= 0 && new_y <= 400)) {
+            document.getElementById('x').value = new_x;
+            document.getElementById('y').value = new_y;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          }
+
+
+
       }
 
       function closeDragElement() {

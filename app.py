@@ -5,12 +5,16 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home_page():
-    return render_template("home_page.html", image="felix.jpg")
+    if request.method == "GET":
+        return render_template("home_page.html", image="felix.jpg")
+    else:
+        request.url
+        return render_template("home_page.html", xml="felix.jpg")
 
 
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
@@ -22,4 +26,4 @@ def upload_file():
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
+    app.run(debug=True)
