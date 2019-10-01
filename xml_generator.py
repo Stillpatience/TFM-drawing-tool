@@ -14,7 +14,7 @@ def calculate_thickness(distance):
 
 
 def get_maximum_size():
-    return 60000
+    return 20000
 
 
 def rgb_to_hex(rgb):
