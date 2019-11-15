@@ -4,4 +4,4 @@ __pycache__/
 venv/
 local_images/
 static/images/uploads/
-!*/felix.jpg
+!*static/images/uploads/felix.jpg

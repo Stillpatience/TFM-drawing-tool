@@ -4,7 +4,7 @@ from PIL import Image
 from xml_generator import generate_xml
 
 app = Flask(__name__)
-image = "felix.jpg"
+image = "mstile-150x150.png"
 @app.route('/', methods=['GET', 'POST'])
 def home_page():
     global image
